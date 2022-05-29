@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include "../Headers.h"
+#include "TextureManager.h"
+#include "Player.h"
 
 class Game
 {
@@ -9,8 +11,14 @@ class Game
     sf::RenderWindow* window;
     sf::Event sfEvent;
 
+    // Members
+    TextureManager textureManager;
+    Player player;
+
     // Initialisers
     void initWindow();
+    void initTextures();
+    void initPlayer();
 
   public:
     // Constructor and Destructor

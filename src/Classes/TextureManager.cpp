@@ -16,7 +16,7 @@ void TextureManager::addTexture(std::string textureName, std::string texturePath
 
 sf::Texture* TextureManager::getTexture(std::string textureName)
 {
-  auto it = this->textures.find(name);
+  auto it = this->textures.find(textureName);
   if (it == this->textures.end()) {
     std::cerr << "ERROR::TEXTUREMANAGER::CANT_FIND_TEXTURE\n";
     return new sf::Texture();

@@ -9,11 +9,23 @@ void Game::initWindow()
   this->window->setVerticalSyncEnabled(false);
 }
 
+void Game::initTextures()
+{
+  this->textureManager.addTexture("player", "src/Assets/Textures/stew.png");
+}
+
+void Game::initPlayer()
+{
+  this->player.setTexture(this->textureManager.getTexture("player"));
+}
+
 // Constructor and Destructor
 
 Game::Game()
 {
   this->initWindow();
+  this->initTextures();
+  this->initPlayer();
 }
 
 Game::~Game()
@@ -42,6 +54,7 @@ void Game::updateSFMLEvents()
 void Game::update()
 {
   this->updateSFMLEvents();
+  this->player.update();
 }
 
 // Render Functions
@@ -49,6 +62,7 @@ void Game::update()
 void Game::render()
 {
   this->window->clear();
+  this->player.render(*this->window);
   this->window->display();
 }
 
