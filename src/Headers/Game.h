@@ -4,6 +4,7 @@
 #include "../Headers.h"
 #include "TextureManager.h"
 #include "Player.h"
+#include "Block.h"
 
 class Game
 {
@@ -14,11 +15,13 @@ class Game
     // Members
     TextureManager textureManager;
     Player player;
+    std::vector<Block> blocks;
 
     // Initialisers
     void initWindow();
     void initTextures();
     void initPlayer();
+    void initBlocks();
 
   public:
     // Constructor and Destructor
@@ -30,6 +33,7 @@ class Game
     void update();
 
     // Render Functions
+    void renderBlocks();
     void render();
 
     // Functions
