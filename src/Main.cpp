@@ -1,9 +1,9 @@
 #include "Headers/Game.h"
 
+Game game;
+
 int main()
 {
-  Game game;
   game.run();
-
   return 0;
 }

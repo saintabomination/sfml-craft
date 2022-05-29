@@ -18,7 +18,7 @@ void Game::initTextures()
 void Game::initPlayer()
 {
   this->player.setTexture(this->textureManager.getTexture("player"));
-  this->player.setSpeed(20.f);
+  this->player.setSpeed(160.f);
 }
 
 void Game::initBlocks()
@@ -44,6 +44,13 @@ Game::~Game()
   delete this->window;
 }
 
+// Accessors
+
+const float Game::getDt() const
+{
+  return this->dtTimer;
+}
+
 // Update Functions
 
 void Game::updateSFMLEvents()
@@ -62,6 +69,11 @@ void Game::updateSFMLEvents()
   }
 }
 
+void Game::updateClocks()
+{
+  this->dtTimer = this->dtClock.restart().asSeconds();
+}
+
 void Game::updateKeys()
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
@@ -77,6 +89,7 @@ void Game::updateKeys()
 void Game::update()
 {
   this->updateSFMLEvents();
+  this->updateClocks();
   this->updateKeys();
   this->player.update();
 }

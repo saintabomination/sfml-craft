@@ -1,4 +1,7 @@
 #include "../Headers/Player.h"
+#include "../Headers/Game.h"
+
+extern Game game;
 
 // Initialisers
 
@@ -35,7 +38,7 @@ void Player::update()
 
 void Player::move(sf::Vector2f movement)
 {
-  this->shape.move(movement * this->speed);
+  this->shape.move(movement * this->speed * game.getDt());
 }
 
 void Player::render(sf::RenderTarget& target)

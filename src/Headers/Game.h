@@ -17,6 +17,10 @@ class Game
     Player player;
     std::vector<Block> blocks;
 
+    // Clocks
+    sf::Clock dtClock;
+    float dtTimer;
+
     // Initialisers
     void initWindow();
     void initTextures();
@@ -28,8 +32,12 @@ class Game
     Game();
     virtual ~Game();
 
+    // Accessors
+    const float getDt() const;
+
     // Update Functions
     void updateSFMLEvents();
+    void updateClocks();
     void updateKeys();
     void update();
 
