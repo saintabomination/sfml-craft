@@ -7,6 +7,7 @@ class Player
 {
   private:
     sf::RectangleShape shape;
+    float speed = 0.f;
 
     // Initialisers
     void initShape();
@@ -17,9 +18,11 @@ class Player
 
     // Modifiers
     void setTexture(sf::Texture* texture);
+    void setSpeed(const float speed);
 
     // Functions
     void update();
+    void move(sf::Vector2f movement);
     void render(sf::RenderTarget& target);
 };
 

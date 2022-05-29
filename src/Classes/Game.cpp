@@ -18,6 +18,7 @@ void Game::initTextures()
 void Game::initPlayer()
 {
   this->player.setTexture(this->textureManager.getTexture("player"));
+  this->player.setSpeed(20.f);
 }
 
 void Game::initBlocks()
@@ -61,9 +62,22 @@ void Game::updateSFMLEvents()
   }
 }
 
+void Game::updateKeys()
+{
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+  {
+    this->player.move(sf::Vector2f(-1.f, 0.f));
+  }
+  else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+  {
+    this->player.move(sf::Vector2f(1.f, 0.f));
+  }
+}
+
 void Game::update()
 {
   this->updateSFMLEvents();
+  this->updateKeys();
   this->player.update();
 }
 

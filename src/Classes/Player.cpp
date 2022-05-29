@@ -21,11 +21,21 @@ void Player::setTexture(sf::Texture* texture)
   this->shape.setTexture(texture);
 }
 
+void Player::setSpeed(const float speed)
+{
+  this->speed = speed;
+}
+
 // Functions
 
 void Player::update()
 {
 
+}
+
+void Player::move(sf::Vector2f movement)
+{
+  this->shape.move(movement * this->speed);
 }
 
 void Player::render(sf::RenderTarget& target)
