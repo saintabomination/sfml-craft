@@ -7,7 +7,7 @@ class Player
 {
   private:
     sf::RectangleShape shape;
-    float speed = 0.f;
+    float speed {0.f};
 
     // Initialisers
     void initShape();

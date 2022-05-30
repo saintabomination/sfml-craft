@@ -4,11 +4,11 @@
 
 void Game::initWindow()
 {
-  std::string windowTitle = "SFML";
-  unsigned int windowWidth = 640;
-  unsigned int windowHeight = 480;
-  unsigned int windowFPSLimit = 60;
-  bool windowVSyncEnabled = false;
+  std::string windowTitle {"SFML"};
+  unsigned int windowWidth {640};
+  unsigned int windowHeight {480};
+  unsigned int windowFPSLimit {60};
+  bool windowVSyncEnabled {false};
 
   std::ifstream configFile("src/Config/Window.ini");
   if (!configFile.is_open())
