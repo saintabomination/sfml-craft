@@ -8,6 +8,7 @@ class Player
   private:
     sf::RectangleShape shape;
     float speed {0.f};
+    float gravityFactor {0.f};
 
     // Initialisers
     void initShape();
@@ -19,6 +20,10 @@ class Player
     // Modifiers
     void setTexture(sf::Texture* texture);
     void setSpeed(const float speed);
+    void setGravityFactor(const float gravityFactor);
+
+    // Accessors
+    const sf::FloatRect getBounds() const;
 
     // Functions
     void update();

@@ -11,6 +11,7 @@ class Game
   private:
     sf::RenderWindow* window;
     sf::Event sfEvent;
+    sf::View view;
 
     // Members
     TextureManager textureManager;
@@ -39,6 +40,8 @@ class Game
     void updateSFMLEvents();
     void updateClocks();
     void updateKeys();
+    void updatePlayer();
+    void updateView();
     void update();
 
     // Render Functions

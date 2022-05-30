@@ -29,11 +29,23 @@ void Player::setSpeed(const float speed)
   this->speed = speed;
 }
 
+void Player::setGravityFactor(const float gravityFactor)
+{
+  this->gravityFactor = gravityFactor;
+}
+
+// Accessors
+
+const sf::FloatRect Player::getBounds() const
+{
+  return this->shape.getGlobalBounds();
+}
+
 // Functions
 
 void Player::update()
 {
-
+  this->shape.move(sf::Vector2f(0.f, this->gravityFactor * game.getDt()));
 }
 
 void Player::move(sf::Vector2f movement)

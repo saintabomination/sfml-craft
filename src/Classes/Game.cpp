@@ -26,6 +26,7 @@ void Game::initWindow()
   this->window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), windowTitle);
   this->window->setFramerateLimit(windowFPSLimit);
   this->window->setVerticalSyncEnabled(windowVSyncEnabled);
+  this->view.setSize(sf::Vector2f((float)windowWidth, (float)windowHeight));
 }
 
 void Game::initTextures()
@@ -38,6 +39,7 @@ void Game::initPlayer()
 {
   this->player.setTexture(this->textureManager.getTexture("player"));
   this->player.setSpeed(160.f);
+  this->player.setGravityFactor(160.f);
 }
 
 void Game::initBlocks()
@@ -105,12 +107,27 @@ void Game::updateKeys()
   }
 }
 
+void Game::updatePlayer()
+{
+  this->player.update();
+}
+
+void Game::updateView()
+{
+  this->view.setCenter(sf::Vector2f(
+    this->player.getBounds().left + this->player.getBounds().width / 2,
+    this->player.getBounds().top + this->player.getBounds().height / 2
+  ));
+  this->window->setView(this->view);
+}
+
 void Game::update()
 {
   this->updateSFMLEvents();
   this->updateClocks();
   this->updateKeys();
-  this->player.update();
+  this->updatePlayer();
+  this->updateView();
 }
 
 // Render Functions
