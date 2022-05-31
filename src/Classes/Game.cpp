@@ -63,6 +63,12 @@ Game::Game()
 
   this->testingShape.setSize(sf::Vector2f(32.f, 32.f));
   this->testingShape.setPosition(sf::Vector2f(64.f, 64.f));
+
+  this->testingShapeTwo.setSize(sf::Vector2f(64.f, 32.f));
+  this->testingShapeTwo.setFillColor(sf::Color::Yellow);
+
+  this->testingShapeThree.setSize(sf::Vector2f(32.f, 32.f));
+  this->testingShapeThree.setPosition(sf::Vector2f(160.f, 64.f));
 }
 
 Game::~Game()
@@ -134,15 +140,29 @@ void Game::update()
   this->updatePlayer();
   this->updateView();
 
-  // Testing
+  // Testing Collisions
 
   sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
   sf::Vector2f worldPos = this->window->mapPixelToCoords(mousePos);
 
-  if (Collisions::pointVsRect(worldPos, testingShape.getGlobalBounds())) {
+  this->testingShapeTwo.setPosition(worldPos);
+
+  if (Collisions::pointVsRect(worldPos, this->testingShape.getGlobalBounds()))
+  {
     this->testingShape.setFillColor(sf::Color::Red);
-  } else {
+  }
+  else
+  {
     this->testingShape.setFillColor(sf::Color::Blue);
+  }
+
+  if (Collisions::rectVsRect(this->testingShapeTwo.getGlobalBounds(), this->testingShapeThree.getGlobalBounds()))
+  {
+    this->testingShapeThree.setFillColor(sf::Color::Green);
+  }
+  else
+  {
+    this->testingShapeThree.setFillColor(sf::Color::Magenta);
   }
 }
 
@@ -159,6 +179,8 @@ void Game::render()
   this->player.render(*this->window);
   this->renderBlocks();
   this->window->draw(this->testingShape);
+  this->window->draw(this->testingShapeTwo);
+  this->window->draw(this->testingShapeThree);
   this->window->display();
 }
 

@@ -16,6 +16,8 @@ class Game
 
     // Testing
     sf::RectangleShape testingShape;
+    sf::RectangleShape testingShapeTwo;
+    sf::RectangleShape testingShapeThree;
 
     // Members
     TextureManager textureManager;

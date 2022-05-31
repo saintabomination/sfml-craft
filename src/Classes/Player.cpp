@@ -45,7 +45,7 @@ const sf::FloatRect Player::getBounds() const
 
 void Player::update()
 {
-  this->shape.move(sf::Vector2f(0.f, this->gravityFactor * game.getDt()));
+  // this->shape.move(sf::Vector2f(0.f, this->gravityFactor * game.getDt()));
 }
 
 void Player::move(sf::Vector2f movement)
