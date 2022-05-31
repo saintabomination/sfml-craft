@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "Player.h"
 #include "Block.h"
+#include "Collisions.h"
 
 class Game
 {
@@ -12,6 +13,9 @@ class Game
     sf::RenderWindow* window;
     sf::Event sfEvent;
     sf::View view;
+
+    // Testing
+    sf::RectangleShape testingShape;
 
     // Members
     TextureManager textureManager;

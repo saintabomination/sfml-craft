@@ -39,7 +39,7 @@ void Game::initPlayer()
 {
   this->player.setTexture(this->textureManager.getTexture("player"));
   this->player.setSpeed(160.f);
-  this->player.setGravityFactor(160.f);
+  this->player.setGravityFactor(60.f);
 }
 
 void Game::initBlocks()
@@ -58,6 +58,11 @@ Game::Game()
   this->initTextures();
   this->initPlayer();
   this->initBlocks();
+
+  // Testing
+
+  this->testingShape.setSize(sf::Vector2f(32.f, 32.f));
+  this->testingShape.setPosition(sf::Vector2f(64.f, 64.f));
 }
 
 Game::~Game()
@@ -128,6 +133,17 @@ void Game::update()
   this->updateKeys();
   this->updatePlayer();
   this->updateView();
+
+  // Testing
+
+  sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
+  sf::Vector2f worldPos = this->window->mapPixelToCoords(mousePos);
+
+  if (Collisions::pointVsRect(worldPos, testingShape.getGlobalBounds())) {
+    this->testingShape.setFillColor(sf::Color::Red);
+  } else {
+    this->testingShape.setFillColor(sf::Color::Blue);
+  }
 }
 
 // Render Functions
@@ -142,6 +158,7 @@ void Game::render()
   this->window->clear();
   this->player.render(*this->window);
   this->renderBlocks();
+  this->window->draw(this->testingShape);
   this->window->display();
 }
 
