@@ -14,11 +14,6 @@ class Game
     sf::Event sfEvent;
     sf::View view;
 
-    // Testing
-    sf::RectangleShape testingShape;
-    sf::RectangleShape testingShapeTwo;
-    sf::RectangleShape testingShapeThree;
-
     // Members
     TextureManager textureManager;
     Player player;

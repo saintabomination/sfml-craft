@@ -1,5 +1,10 @@
 #include "../Headers/Game.h"
 
+// Testing
+sf::RectangleShape testingShape;
+sf::RectangleShape testingShapeTwo;
+sf::RectangleShape testingShapeThree;
+
 // Initialisers
 
 void Game::initWindow()
@@ -61,14 +66,14 @@ Game::Game()
 
   // Testing
 
-  this->testingShape.setSize(sf::Vector2f(32.f, 32.f));
-  this->testingShape.setPosition(sf::Vector2f(64.f, 64.f));
+  testingShape.setSize(sf::Vector2f(32.f, 32.f));
+  testingShape.setPosition(sf::Vector2f(64.f, 64.f));
 
-  this->testingShapeTwo.setSize(sf::Vector2f(64.f, 32.f));
-  this->testingShapeTwo.setFillColor(sf::Color::Yellow);
+  testingShapeTwo.setSize(sf::Vector2f(64.f, 32.f));
+  testingShapeTwo.setFillColor(sf::Color::Yellow);
 
-  this->testingShapeThree.setSize(sf::Vector2f(32.f, 32.f));
-  this->testingShapeThree.setPosition(sf::Vector2f(160.f, 64.f));
+  testingShapeThree.setSize(sf::Vector2f(32.f, 32.f));
+  testingShapeThree.setPosition(sf::Vector2f(160.f, 64.f));
 }
 
 Game::~Game()
@@ -145,24 +150,24 @@ void Game::update()
   sf::Vector2i mousePos = sf::Mouse::getPosition(*this->window);
   sf::Vector2f worldPos = this->window->mapPixelToCoords(mousePos);
 
-  this->testingShapeTwo.setPosition(worldPos);
+  testingShapeTwo.setPosition(worldPos);
 
-  if (Collisions::pointVsRect(worldPos, this->testingShape.getGlobalBounds()))
+  if (Collisions::pointVsRect(worldPos, testingShape.getGlobalBounds()))
   {
-    this->testingShape.setFillColor(sf::Color::Red);
+    testingShape.setFillColor(sf::Color::Red);
   }
   else
   {
-    this->testingShape.setFillColor(sf::Color::Blue);
+    testingShape.setFillColor(sf::Color::Blue);
   }
 
-  if (Collisions::rectVsRect(this->testingShapeTwo.getGlobalBounds(), this->testingShapeThree.getGlobalBounds()))
+  if (Collisions::rectVsRect(testingShapeTwo.getGlobalBounds(), testingShapeThree.getGlobalBounds()))
   {
-    this->testingShapeThree.setFillColor(sf::Color::Green);
+    testingShapeThree.setFillColor(sf::Color::Green);
   }
   else
   {
-    this->testingShapeThree.setFillColor(sf::Color::Magenta);
+    testingShapeThree.setFillColor(sf::Color::Magenta);
   }
 }
 
@@ -178,9 +183,9 @@ void Game::render()
   this->window->clear();
   this->player.render(*this->window);
   this->renderBlocks();
-  this->window->draw(this->testingShape);
-  this->window->draw(this->testingShapeTwo);
-  this->window->draw(this->testingShapeThree);
+  this->window->draw(testingShape);
+  this->window->draw(testingShapeTwo);
+  this->window->draw(testingShapeThree);
   this->window->display();
 }
 
