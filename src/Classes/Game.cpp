@@ -4,6 +4,11 @@
 sf::RectangleShape testingShape;
 sf::RectangleShape testingShapeTwo;
 sf::RectangleShape testingShapeThree;
+sf::RectangleShape testingShapeFour;
+sf::Vector2f rayPoint;
+sf::Vector2i mousePos;
+sf::Vector2f rayDirection;
+sf::Vertex line[2];
 
 // Initialisers
 
@@ -74,6 +79,9 @@ Game::Game()
 
   testingShapeThree.setSize(sf::Vector2f(32.f, 32.f));
   testingShapeThree.setPosition(sf::Vector2f(160.f, 64.f));
+
+  testingShapeFour.setSize(sf::Vector2f(32.f, 32.f));
+  testingShapeFour.setPosition(sf::Vector2f(256.f, 64.f));
 }
 
 Game::~Game()
@@ -169,10 +177,45 @@ void Game::update()
   {
     testingShapeThree.setFillColor(sf::Color::Magenta);
   }
+
+  // Testing: Drawing a ray
+
+  sf::Vector2f viewCenter = this->window->getView().getCenter();
+  sf::Vector2f halfExtents = this->window->getView().getSize() / 2.0f;
+
+  rayPoint = sf::Vector2f(
+    this->player.getBounds().left + 16.f,
+    this->player.getBounds().top + 16.f
+  );
+
+  mousePos = sf::Mouse::getPosition(*this->window);
+  sf::Vector2f newMousePos = sf::Vector2f(mousePos.x + this->player.getBounds().left, mousePos.y + this->player.getBounds().top);
+  newMousePos.x -= halfExtents.x - 16.f;
+  newMousePos.y -= halfExtents.y - 16.f;
+
+  rayDirection = newMousePos;
+  rayDirection.x -= rayPoint.x;
+  rayDirection.y -= rayPoint.y;
+
+  line[0].position = sf::Vector2f(newMousePos);
+  line[0].color = sf::Color::Red;
+  line[1].position = rayPoint;
+  line[1].color = sf::Color::Red;
+
+  sf::Vector2f cp, cn;
+  float t;
+
+  if (Collisions::rayVsRect(rayPoint, rayDirection, testingShapeFour.getGlobalBounds(), cp, cn, t) && t < 1.f)
+  {
+    testingShapeFour.setFillColor(sf::Color::White);
+  }
+  else
+  {
+    testingShapeFour.setFillColor(sf::Color::Cyan);
+  }
 }
 
 // Render Functions
-
 void Game::renderBlocks()
 {
   for (Block block : this->blocks) block.render(*this->window);
@@ -186,6 +229,8 @@ void Game::render()
   this->window->draw(testingShape);
   this->window->draw(testingShapeTwo);
   this->window->draw(testingShapeThree);
+  this->window->draw(testingShapeFour);
+  this->window->draw(line, 2, sf::Lines);
   this->window->display();
 }
 
