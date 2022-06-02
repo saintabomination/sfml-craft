@@ -56,3 +56,27 @@ bool Collisions::rayVsRect(sf::Vector2f rayOrigin, sf::Vector2f rayDir, sf::Floa
 
   return true;
 }
+
+bool Collisions::dynamicRayVsRect(sf::FloatRect rectOne, sf::FloatRect rectTwo, sf::Vector2f velocity, sf::Vector2f contactPoint, sf::Vector2f contactNormal, float& fTime)
+{
+  if (velocity.x == 0 && velocity.y == 0) return false;
+
+  sf::FloatRect expandedRectTwo;
+  expandedRectTwo.left = rectTwo.left - rectOne.width / 2;
+  expandedRectTwo.top = rectTwo.top - rectOne.height / 2;
+  expandedRectTwo.width = rectTwo.width + rectOne.width;
+  expandedRectTwo.height = rectTwo.height + rectOne.height;
+
+  if (Collisions::rayVsRect(
+    sf::Vector2f(rectOne.left + rectOne.width / 2, rectOne.top + rectOne.height / 2),
+    velocity,
+    expandedRectTwo,
+    contactPoint,
+    contactNormal,
+    fTime
+  )) if (fTime <= 1.f) {
+      return true;
+  }
+
+  return false;
+}

@@ -49,7 +49,7 @@ void Game::initPlayer()
 {
   this->player.setTexture(this->textureManager.getTexture("player"));
   this->player.setSpeed(160.f);
-  this->player.setGravityFactor(60.f);
+  this->player.setGravityFactor(120.f);
 }
 
 void Game::initBlocks()
@@ -121,13 +121,33 @@ void Game::updateClocks()
 
 void Game::updateKeys()
 {
+  bool wasKeyPressed = false;
+
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
   {
-    this->player.move(sf::Vector2f(-1.f, 0.f));
+    this->player.setVelocityX(-1.f);
+    wasKeyPressed = true;
   }
   else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
   {
-    this->player.move(sf::Vector2f(1.f, 0.f));
+    this->player.setVelocityX(1.f);
+    wasKeyPressed = true;
+  }
+
+  if (!wasKeyPressed) this->player.setVelocityX(0.f);
+}
+
+void Game::updateCollisions()
+{
+  sf::Vector2f cp, cn;
+  float ct;
+
+  for (Block block : this->blocks)
+  {
+    if (Collisions::dynamicRayVsRect(this->player.getBounds(), block.getBounds(), this->player.getVelocity(), cp, cn, ct))
+    {
+      this->player.setVelocity(sf::Vector2f(0.f, 0.f));
+    }
   }
 }
 
@@ -150,6 +170,7 @@ void Game::update()
   this->updateSFMLEvents();
   this->updateClocks();
   this->updateKeys();
+  this->updateCollisions();
   this->updatePlayer();
   this->updateView();
 
@@ -205,7 +226,7 @@ void Game::update()
   sf::Vector2f cp, cn;
   float t;
 
-  if (Collisions::rayVsRect(rayPoint, rayDirection, testingShapeFour.getGlobalBounds(), cp, cn, t) && t < 1.f)
+  if (Collisions::rayVsRect(rayPoint, rayDirection, testingShapeFour.getGlobalBounds(), cp, cn, t) && t <= 1.f)
   {
     testingShapeFour.setFillColor(sf::Color::White);
   }

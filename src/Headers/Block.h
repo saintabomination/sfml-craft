@@ -15,6 +15,9 @@ class Block
     // Constructor
     Block(sf::Vector2f position, sf::Texture* texture);
 
+    // Accessors
+    const sf::FloatRect getBounds() const;
+
     // Functions
     void render(sf::RenderTarget& target);
 };

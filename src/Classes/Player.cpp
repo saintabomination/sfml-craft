@@ -15,6 +15,7 @@ void Player::initShape()
 Player::Player()
 {
   this->initShape();
+  this->velocity.y = 1.f;
 }
 
 // Modifiers
@@ -29,6 +30,21 @@ void Player::setSpeed(const float speed)
   this->speed = speed;
 }
 
+void Player::setVelocity(const sf::Vector2f velocity)
+{
+  this->velocity = velocity;
+}
+
+void Player::setVelocityX(const float velocity)
+{
+  this->velocity.x = velocity;
+}
+
+void Player::setVelocityY(const float velocity)
+{
+  this->velocity.y = velocity;
+}
+
 void Player::setGravityFactor(const float gravityFactor)
 {
   this->gravityFactor = gravityFactor;
@@ -41,16 +57,22 @@ const sf::FloatRect Player::getBounds() const
   return this->shape.getGlobalBounds();
 }
 
+const sf::Vector2f Player::getVelocity() const
+{
+  return sf::Vector2f(
+    this->velocity.x * this->speed * game.getDt(),
+    this->velocity.y * this->gravityFactor * game.getDt()
+  );
+}
+
 // Functions
 
 void Player::update()
 {
-  // this->shape.move(sf::Vector2f(0.f, this->gravityFactor * game.getDt()));
-}
-
-void Player::move(sf::Vector2f movement)
-{
-  this->shape.move(movement * this->speed * game.getDt());
+  this->shape.move(sf::Vector2f(
+    this->velocity.x * this->speed * game.getDt(),
+    this->velocity.y * this->gravityFactor * game.getDt()
+  ));
 }
 
 void Player::render(sf::RenderTarget& target)
